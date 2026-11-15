@@ -1,0 +1,1408 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BLACK FRIDAY — Northpaw Coffee Roasters · Portland, OR</title>
+<meta name="description" content="Black Friday at Northpaw Coffee Roasters. Three deals, 40 brew kits, no rematch. Doors open Fri Nov 27, 2026 — 00:00 PT.">
+<meta name="theme-color" content="#140E0A">
+<meta property="og:title" content="BLACK FRIDAY — Northpaw Coffee Roasters">
+<meta property="og:description" content="Three deals. 40 kits. No rematch. Doors open Fri Nov 27, 2026 — 00:00 PT.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' fill='%23FF5F1F'/%3E%3Cg fill='%23140E0A'%3E%3Cellipse cx='32' cy='43' rx='13' ry='10'/%3E%3Cellipse cx='15' cy='29' rx='5.5' ry='7' transform='rotate(-18 15 29)'/%3E%3Cellipse cx='25' cy='21' rx='5.5' ry='7.5' transform='rotate(-6 25 21)'/%3E%3Cellipse cx='39' cy='21' rx='5.5' ry='7.5' transform='rotate(6 39 21)'/%3E%3Cellipse cx='49' cy='29' rx='5.5' ry='7' transform='rotate(18 49 29)'/%3E%3C/g%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Oswald:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js" defer></script>
+<style>
+/* ============ TOKENS ============ */
+:root{
+  --ink:#140E0A; --ink-2:#1C1410; --ink-3:#241A13; --panel:#1A120D;
+  --line:#3A2C21; --line-2:#4A382A;
+  --orange:#FF5F1F; --orange-2:#E04E12; --paper:#F5EFE6; --muted:#A6968A;
+  --header-h:64px; --ticker-h:46px;
+  --fdw:clamp(26px,4.4vw,52px); --fdh:calc(var(--fdw)*1.42);
+  --f-disp:'Anton','Arial Narrow',Impact,sans-serif;
+  --f-ui:'Oswald','Arial Narrow',Arial,sans-serif;
+  --f-mono:'Space Mono',ui-monospace,Menlo,Consolas,monospace;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{
+  background:var(--ink); color:var(--paper);
+  font-family:var(--f-ui); font-size:16px; line-height:1.5;
+  -webkit-font-smoothing:antialiased; overflow-x:hidden;
+}
+img{display:block;max-width:100%}
+button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
+input{font:inherit}
+a{color:inherit}
+::selection{background:var(--orange);color:var(--ink)}
+:focus-visible{outline:2px solid var(--orange);outline-offset:3px}
+/* film grain over everything */
+body::after{
+  content:'';position:fixed;inset:0;z-index:120;pointer-events:none;opacity:.055;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+.hazard{height:8px;background:repeating-linear-gradient(-45deg,var(--orange) 0 14px,#120C08 14px 28px)}
+.hazard-top{position:fixed;top:0;left:0;right:0;z-index:70;pointer-events:none}
+.mono{font-family:var(--f-mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase}
+.chip{display:inline-block;background:var(--orange);color:var(--ink);padding:5px 10px 4px;font-weight:700}
+.linklike{font-family:var(--f-mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--orange);border-bottom:1px solid var(--orange);padding-bottom:2px}
+.linklike:hover{color:var(--paper);border-color:var(--paper)}
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:10px;
+  font-family:var(--f-ui);font-weight:600;letter-spacing:.14em;text-transform:uppercase;
+  padding:14px 26px;border:1px solid var(--line-2);color:var(--paper);
+  transition:transform .15s ease,background .15s ease,color .15s ease,border-color .15s ease;
+}
+.btn:hover{transform:translateY(-2px)}
+.btn:active{transform:translateY(0)}
+.btn-primary{background:var(--orange);border-color:var(--orange);color:var(--ink)}
+.btn-primary:hover{background:var(--orange-2);border-color:var(--orange-2)}
+.btn[disabled]{background:#241A13;border-color:var(--line);color:var(--muted);cursor:not-allowed;transform:none}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0}
+
+/* ============ HEADER ============ */
+.site-head{
+  position:sticky;top:8px;z-index:60;height:var(--header-h);
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 clamp(16px,3vw,40px);
+  background:rgba(20,14,10,.92);backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--line);
+}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none}
+.brand-badge{width:36px;height:36px;background:var(--orange);display:grid;place-items:center;flex:none}
+.brand-badge svg{width:26px;height:26px}
+.brand-name{font-weight:600;letter-spacing:.18em;font-size:17px;line-height:1}
+.brand-sub{font-family:var(--f-mono);font-size:9px;letter-spacing:.3em;color:var(--muted);margin-top:4px}
+.nav{display:flex;align-items:center;gap:clamp(14px,2.5vw,34px)}
+.nav a{font-family:var(--f-mono);font-size:12px;letter-spacing:.18em;text-decoration:none;color:var(--muted)}
+.nav a:hover{color:var(--orange)}
+.cart-btn{
+  display:flex;align-items:center;gap:10px;border:1px solid var(--line-2);
+  padding:9px 14px;font-family:var(--f-mono);font-size:12px;letter-spacing:.18em;
+  transition:border-color .15s ease;
+}
+.cart-btn:hover{border-color:var(--orange)}
+.cart-count{
+  min-width:22px;height:22px;display:grid;place-items:center;
+  background:var(--orange);color:var(--ink);font-weight:700;font-size:12px;padding:0 4px;
+}
+.cart-count[data-zero="1"]{background:#241A13;color:var(--muted)}
+
+/* ============ HERO ============ */
+.hero{
+  position:relative;
+  min-height:100vh;min-height:calc(100svh - var(--header-h) - 8px);
+  display:flex;flex-direction:column;
+  border-bottom:1px solid var(--line);
+}
+.hero-inner{
+  flex:1;display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);
+  gap:clamp(20px,4vw,64px);align-items:center;
+  padding:clamp(20px,3.5vh,44px) clamp(16px,3vw,40px) clamp(16px,2.5vh,28px);
+  max-width:1560px;width:100%;margin:0 auto;
+}
+.eyebrow-row{display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin-bottom:clamp(10px,1.6vh,18px)}
+.eyebrow-meta{color:var(--muted)}
+.eyebrow-meta b{color:var(--orange);font-weight:700}
+.status-chip{
+  display:none;align-items:center;gap:8px;border:1px solid var(--orange);
+  padding:4px 10px;font-family:var(--f-mono);font-size:11px;letter-spacing:.16em;color:var(--orange);
+}
+.status-chip.on{display:inline-flex}
+.status-dot{width:7px;height:7px;background:var(--orange);flex:none}
+[data-phase="live"] .status-dot{animation:pulse 1.1s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.25}}
+.bf-title{
+  font-family:var(--f-disp);font-weight:400;
+  font-size:clamp(3.6rem,12.2vw,11.5rem);
+  line-height:.86;letter-spacing:.005em;color:var(--orange);
+  text-transform:uppercase;user-select:none;
+}
+.bf-word{display:block;white-space:nowrap}
+.bf-word .ltr{display:inline-block;will-change:transform}
+.bf-sub{
+  margin-top:clamp(12px,2vh,20px);
+  font-weight:600;font-size:clamp(1.05rem,2vw,1.5rem);
+  letter-spacing:.06em;text-transform:uppercase;
+}
+.bf-sub em{font-style:normal;color:var(--orange)}
+.bf-copy{margin-top:10px;color:var(--muted);font-size:15px;max-width:46ch}
+
+/* --- countdown --- */
+.countdown{
+  margin-top:clamp(16px,2.8vh,28px);
+  max-width:560px;border:1px solid var(--line);background:var(--panel);
+  padding:14px 16px 12px;
+}
+.cd-label-row{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:10px}
+.cd-label{color:var(--orange);font-weight:700;display:flex;align-items:center;gap:8px}
+.cd-dot{width:7px;height:7px;background:var(--orange);flex:none;animation:pulse 1.4s ease-in-out infinite}
+@media (prefers-reduced-motion:reduce){.cd-dot{animation:none}}
+.cd-date{color:var(--muted)}
+.flaps{display:flex;align-items:flex-start;gap:clamp(6px,1vw,12px)}
+.flap-group{display:flex;flex-direction:column;align-items:center}
+.flap-unit{display:flex;gap:4px}
+code{font-family:var(--f-mono);color:var(--orange);font-size:.92em}
+.flap-pair-label{
+  text-align:center;color:var(--muted);font-family:var(--f-mono);
+  font-size:10px;letter-spacing:.28em;margin-top:8px;
+}
+.flap-colon{
+  font-family:var(--f-mono);font-weight:700;color:var(--orange);
+  font-size:calc(var(--fdh)*.5);line-height:var(--fdh);padding:0 1px;user-select:none;
+}
+.fd{
+  position:relative;width:var(--fdw);height:var(--fdh);
+  perspective:300px;border:1px solid #0C0805;border-radius:3px;
+  background:#221812;
+}
+.fd-half,.fd-flap{
+  position:absolute;left:0;width:100%;height:50%;overflow:hidden;
+}
+.fd-top,.fd-flap-top{top:0;border-radius:2px 2px 0 0;background:linear-gradient(180deg,#2E2016,#251A12)}
+.fd-bottom,.fd-flap-bottom{bottom:0;border-radius:0 0 2px 2px;background:linear-gradient(180deg,#1D140E,#170F0A)}
+.fd-glyph{
+  position:absolute;left:0;width:100%;height:200%;
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--f-ui);font-weight:600;
+  font-size:calc(var(--fdh)*.66);color:var(--paper);
+}
+.fd-top .fd-glyph,.fd-flap-top .fd-glyph{top:0}
+.fd-bottom .fd-glyph,.fd-flap-bottom .fd-glyph{top:-100%}
+.fd-flap{display:none;backface-visibility:hidden;z-index:2}
+.fd-flap-top{transform-origin:50% 100%}
+.fd-flap-bottom{transform-origin:50% 0%;background:linear-gradient(180deg,#1D140E,#170F0A)}
+.fd::after{content:'';position:absolute;top:50%;left:0;right:0;height:2px;margin-top:-1px;background:#0C0805;z-index:3}
+
+/* --- early access --- */
+.early{margin-top:clamp(16px,2.8vh,28px);max-width:560px}
+.early-label{color:var(--muted);margin-bottom:10px}
+.early-row{display:flex;gap:0}
+.early-row input{
+  flex:1;min-width:0;background:var(--ink-2);border:1px solid var(--line-2);border-right:none;
+  color:var(--paper);padding:0 18px;height:56px;
+  font-family:var(--f-mono);font-size:14px;letter-spacing:.04em;
+}
+.early-row input::placeholder{color:#6E5F53}
+.early-row input:focus{outline:none;border-color:var(--orange)}
+.early-row .btn{height:56px;flex:none;font-size:14px}
+.early-msg{margin-top:9px;color:var(--muted);min-height:16px}
+.early-msg.ok{color:var(--orange)}
+.early-msg.err{color:#FF8A6B}
+.early-done{
+  display:none;border:1px solid var(--orange);padding:16px 18px;
+  font-family:var(--f-mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--orange);
+}
+.early-done.on{display:block}
+.early-done b{color:var(--paper)}
+
+/* --- hero art (kit + stamp) --- */
+.hero-art{position:relative;display:grid;place-items:center;min-height:320px}
+.glow{
+  position:absolute;inset:-8%;pointer-events:none;
+  background:radial-gradient(closest-side,rgba(255,95,31,.22),rgba(58,36,22,.38) 46%,rgba(20,14,10,0) 74%);
+}
+.kit{position:relative;width:100%;max-width:600px;transform:rotate(-7deg)}
+.kit img{width:100%;height:auto;filter:drop-shadow(0 34px 40px rgba(0,0,0,.55))}
+.kit .kit-img-wrap{will-change:transform}
+.stamp-wrap{
+  position:absolute;top:-9%;right:-6%;width:46%;min-width:140px;z-index:4;
+  transform:rotate(-10deg);opacity:.96;
+}
+.stamp-wrap.stamp-hidden{display:none}
+.stamp-wrap svg,.db-stamp svg,.sold-overlay svg{width:100%;height:auto;overflow:visible;filter:drop-shadow(0 3px 14px rgba(0,0,0,.62))}
+
+/* --- ticker --- */
+.ticker{
+  border-top:3px solid var(--orange);background:var(--orange);
+  overflow:hidden;white-space:nowrap;height:var(--ticker-h);
+  display:flex;align-items:center;
+}
+.ticker-track{display:inline-flex;will-change:transform}
+.tick-half{display:inline-flex;align-items:center;flex:none}
+.tick-item{
+  display:inline-flex;align-items:center;gap:14px;padding:0 22px;
+  font-family:var(--f-disp);font-size:19px;letter-spacing:.05em;color:var(--ink);
+  text-transform:uppercase;line-height:var(--ticker-h);
+}
+.tick-item .was{opacity:.62;text-decoration:line-through;font-size:16px}
+.tick-sep{width:9px;height:9px;background:var(--ink);transform:rotate(45deg);flex:none}
+.no-gsap .ticker-track{animation:tickmove 28s linear infinite}
+@keyframes tickmove{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@media (prefers-reduced-motion:reduce){.no-gsap .ticker-track{animation:none}}
+
+/* ============ THE DROP ============ */
+.drop{padding:clamp(56px,9vh,110px) clamp(16px,3vw,40px) clamp(40px,7vh,90px);max-width:1560px;margin:0 auto}
+.sec-head{margin-bottom:clamp(28px,5vh,54px)}
+.sec-head h2{
+  font-family:var(--f-disp);font-weight:400;text-transform:uppercase;
+  font-size:clamp(2.4rem,6vw,5rem);line-height:.92;margin:14px 0 12px;color:var(--paper);
+}
+.sec-head h2 em{font-style:normal;color:var(--orange)}
+.sec-sub{color:var(--muted)}
+/* doorbuster */
+.doorbuster{
+  display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+  border:1px solid var(--line);background:var(--panel);margin-bottom:26px;
+  position:relative;overflow:hidden;
+}
+.doorbuster::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:5px;background:var(--orange);
+}
+.db-media{
+  position:relative;display:grid;place-items:center;padding:clamp(22px,4vw,48px);
+  background:radial-gradient(closest-side at 50% 52%,rgba(255,95,31,.16),rgba(26,18,13,0) 72%),var(--ink-2);
+  border-right:1px solid var(--line);min-height:380px;
+}
+.db-media .kit-tilt{width:100%;max-width:520px;transform:rotate(-4deg)}
+.db-media img{width:100%;filter:drop-shadow(0 26px 30px rgba(0,0,0,.5))}
+.db-stamp{position:absolute;top:6%;right:5%;width:34%;min-width:130px;max-width:210px;transform:rotate(-9deg);z-index:3}
+.db-stamp svg{width:100%;height:auto;overflow:visible}
+.sold-overlay{
+  position:absolute;inset:0;display:none;place-items:center;z-index:5;
+  background:rgba(20,14,10,.45);
+}
+.sold-overlay.on{display:grid}
+.sold-overlay svg{width:min(62%,340px);transform:rotate(-8deg);overflow:visible}
+.db-info{padding:clamp(22px,3.4vw,46px);display:flex;flex-direction:column;gap:14px;justify-content:center}
+.tag-row{display:flex;flex-wrap:wrap;gap:8px}
+.tag{font-family:var(--f-mono);font-size:11px;letter-spacing:.18em;padding:5px 10px 4px;font-weight:700;text-transform:uppercase}
+.tag-solid{background:var(--orange);color:var(--ink)}
+.tag-line{border:1px solid var(--line-2);color:var(--muted)}
+.db-title{
+  font-family:var(--f-disp);font-weight:400;text-transform:uppercase;
+  font-size:clamp(1.9rem,3.6vw,3.2rem);line-height:.95;
+}
+.db-sub{color:var(--muted);font-family:var(--f-mono);font-size:12px;letter-spacing:.14em;text-transform:uppercase}
+.db-desc{color:var(--muted);font-size:15px;max-width:52ch}
+.price-row{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;margin-top:4px}
+.price-now{font-family:var(--f-disp);font-size:clamp(2.2rem,4vw,3.4rem);color:var(--orange);line-height:1}
+.price-was{color:var(--muted);text-decoration:line-through;font-size:20px}
+.price-save{
+  font-family:var(--f-mono);font-size:11px;letter-spacing:.16em;font-weight:700;
+  border:1px solid var(--orange);color:var(--orange);padding:4px 8px 3px;text-transform:uppercase;
+}
+.stock{margin-top:6px}
+.stock-head{display:flex;justify-content:space-between;gap:10px;color:var(--muted);margin-bottom:8px}
+.stock-head b{color:var(--orange);font-weight:700}
+.stock-bar{height:10px;background:#0F0A07;border:1px solid var(--line-2)}
+.stock-bar i{display:block;height:100%;background:var(--orange);transition:width .5s ease}
+.stock-bar.low i{background:#C7331B;animation:pulse 1.2s ease-in-out infinite}
+@media (prefers-reduced-motion:reduce){.stock-bar.low i{animation:none}}
+.stock-note{margin-top:8px;color:var(--muted)}
+.db-cta{display:flex;gap:12px;align-items:stretch;margin-top:8px;flex-wrap:wrap}
+.db-cta .btn-atc{flex:1;min-width:220px;height:58px;font-size:15px}
+.limit-note{color:var(--muted);font-family:var(--f-mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase}
+/* undercards */
+.cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:26px}
+.card{
+  border:1px solid var(--line);background:var(--panel);
+  display:flex;flex-direction:column;transition:transform .18s ease,border-color .18s ease;
+}
+.card:hover{transform:translateY(-4px);border-color:var(--orange)}
+.card-media{position:relative;overflow:hidden;background:var(--ink-2)}
+.card-media img{width:100%;height:100%;object-fit:cover;aspect-ratio:3/3.4;transition:transform .35s ease}
+.card:hover .card-media img{transform:scale(1.04)}
+.save-badge{
+  position:absolute;top:0;left:0;z-index:2;
+  background:var(--orange);color:var(--ink);
+  font-family:var(--f-mono);font-weight:700;font-size:12px;letter-spacing:.16em;
+  padding:8px 12px 7px;text-transform:uppercase;
+}
+.card-info{padding:clamp(18px,2.4vw,28px);display:flex;flex-direction:column;gap:10px;flex:1}
+.card-title{font-family:var(--f-disp);font-weight:400;text-transform:uppercase;font-size:clamp(1.5rem,2.4vw,2.1rem);line-height:1}
+.card-sub{color:var(--muted);font-family:var(--f-mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase}
+.card-desc{color:var(--muted);font-size:14.5px;flex:1}
+.card .price-row{margin-top:auto}
+.card .price-now{font-size:clamp(1.7rem,2.6vw,2.4rem)}
+.card .price-was{font-size:16px}
+.btn-atc{width:100%;height:52px;font-size:14px}
+
+/* ============ TERMS / FOOTER ============ */
+.terms{border-top:1px solid var(--line)}
+.terms-inner{
+  max-width:1560px;margin:0 auto;padding:clamp(34px,5vh,60px) clamp(16px,3vw,40px);
+  display:grid;grid-template-columns:minmax(0,.4fr) minmax(0,1.2fr) minmax(0,.6fr);gap:clamp(20px,3vw,48px);
+  align-items:start;
+}
+.terms-h{font-family:var(--f-disp);font-weight:400;font-size:clamp(1.6rem,3vw,2.4rem);text-transform:uppercase;line-height:.95}
+.terms-h em{font-style:normal;color:var(--orange)}
+.terms-list{list-style:none;display:flex;flex-direction:column;gap:10px;color:var(--muted)}
+.terms-list li{padding-left:18px;position:relative;line-height:1.6}
+.terms-list li::before{content:'▸';position:absolute;left:0;color:var(--orange)}
+.terms-links{display:flex;flex-direction:column;gap:12px;color:var(--muted);align-items:flex-start}
+.site-foot{border-top:1px solid var(--line)}
+.foot-inner{
+  max-width:1560px;margin:0 auto;padding:22px clamp(16px,3vw,40px);
+  display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap;align-items:center;
+}
+.site-foot .mono{color:var(--muted)}
+.site-foot .tiny{font-size:10px;opacity:.7}
+
+/* ============ DRAWER ============ */
+.scrim{
+  position:fixed;inset:0;z-index:80;background:rgba(10,7,5,.7);
+  opacity:0;pointer-events:none;transition:opacity .25s ease;
+}
+.scrim.on{opacity:1;pointer-events:auto}
+.drawer{
+  position:fixed;top:0;right:0;bottom:0;z-index:90;
+  width:min(440px,100vw);background:var(--ink-2);border-left:1px solid var(--line-2);
+  transform:translateX(102%);transition:transform .32s cubic-bezier(.22,.9,.3,1);
+  display:flex;flex-direction:column;
+}
+.drawer.on{transform:translateX(0)}
+.dr-head{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:18px 20px;border-bottom:1px solid var(--line);
+}
+.dr-title{font-family:var(--f-disp);font-weight:400;font-size:26px;letter-spacing:.04em;text-transform:uppercase}
+.dr-close{font-size:22px;line-height:1;padding:6px 10px;color:var(--muted)}
+.dr-close:hover{color:var(--orange)}
+.shipping{padding:16px 20px;border-bottom:1px solid var(--line)}
+.ship-label{color:var(--paper);font-weight:700;margin-bottom:10px}
+.ship-label b{color:var(--orange)}
+.ship-bar{height:8px;background:#0F0A07;border:1px solid var(--line)}
+.ship-bar i{display:block;height:100%;background:var(--orange);width:0;transition:width .4s ease}
+.ship-note{margin-top:8px;color:var(--muted)}
+.dr-items{flex:1;overflow-y:auto;padding:8px 20px}
+.dr-item{display:grid;grid-template-columns:76px 1fr auto;gap:14px;padding:16px 0;border-bottom:1px solid var(--line);align-items:center}
+.dr-thumb{width:76px;height:88px;object-fit:cover;border:1px solid var(--line);background:var(--ink-3)}
+.dr-name{font-weight:600;letter-spacing:.08em;text-transform:uppercase;font-size:14px;line-height:1.25}
+.dr-unit{color:var(--muted);font-family:var(--f-mono);font-size:11px;letter-spacing:.08em;margin-top:4px}
+.qty{display:inline-flex;border:1px solid var(--line-2);margin-top:10px}
+.qty button{width:30px;height:30px;font-size:16px;color:var(--paper)}
+.qty button:hover{background:var(--ink-3);color:var(--orange)}
+.qty .q{width:38px;display:grid;place-items:center;font-family:var(--f-mono);font-size:13px;border-left:1px solid var(--line-2);border-right:1px solid var(--line-2)}
+.dr-right{display:flex;flex-direction:column;align-items:flex-end;gap:10px;justify-self:end}
+.dr-line{font-family:var(--f-disp);font-size:20px;color:var(--orange)}
+.dr-remove{color:var(--muted);font-family:var(--f-mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;border-bottom:1px solid transparent}
+.dr-remove:hover{color:#FF8A6B;border-color:#FF8A6B}
+.dr-empty{padding:48px 10px;text-align:center;color:var(--muted);display:flex;flex-direction:column;gap:18px;align-items:center}
+.dr-empty .btn{margin-top:6px}
+.dr-foot{border-top:1px solid var(--line);padding:18px 20px 22px;background:var(--ink-2)}
+.dr-subtotal{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px}
+.dr-subtotal .mono{color:var(--muted)}
+.dr-subtotal .amount{font-family:var(--f-disp);font-size:30px;color:var(--paper)}
+.dr-note{color:var(--muted);font-size:10px;letter-spacing:.12em;margin-bottom:14px}
+.dr-foot .btn{width:100%;height:56px;font-size:15px}
+.dr-mode{margin-top:10px;text-align:center;color:var(--muted);font-size:10px;letter-spacing:.14em}
+
+/* ============ MODALS / TOAST ============ */
+.modal{
+  position:fixed;inset:0;z-index:100;display:none;place-items:center;padding:20px;
+  background:rgba(10,7,5,.78);
+}
+.modal.on{display:grid}
+.modal-card{
+  width:min(560px,100%);max-height:86vh;overflow-y:auto;
+  background:var(--ink-2);border:1px solid var(--line-2);border-top:5px solid var(--orange);
+  padding:clamp(22px,4vw,36px);
+}
+.modal-card h3{font-family:var(--f-disp);font-weight:400;text-transform:uppercase;font-size:clamp(1.5rem,3vw,2.2rem);margin-bottom:6px}
+.modal-kicker{color:var(--orange);margin-bottom:16px}
+.receipt{border:1px dashed var(--line-2);padding:16px;margin:16px 0;display:flex;flex-direction:column;gap:9px}
+.receipt-row{display:flex;justify-content:space-between;gap:14px;color:var(--muted)}
+.receipt-row.total{color:var(--paper);font-weight:700;border-top:1px solid var(--line);padding-top:10px}
+.receipt-row.total .val{color:var(--orange)}
+.receipt-row .val{color:var(--paper)}
+.modal-note{color:var(--muted);font-size:13.5px;line-height:1.65;margin:14px 0 4px}
+.modal-note a{color:var(--orange)}
+.modal-actions{display:flex;gap:12px;margin-top:18px;flex-wrap:wrap}
+.modal-actions .btn{flex:1;min-width:180px}
+.policy-body{color:var(--muted);font-size:14px;line-height:1.7;display:flex;flex-direction:column;gap:12px}
+.policy-body h4{color:var(--paper);font-family:var(--f-ui);font-weight:600;letter-spacing:.12em;text-transform:uppercase;font-size:13px;margin-top:8px}
+.toast{
+  position:fixed;left:50%;bottom:26px;z-index:110;transform:translate(-50%,20px);
+  background:var(--ink-2);border:1px solid var(--orange);color:var(--paper);
+  padding:13px 22px;font-family:var(--f-mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;
+  opacity:0;pointer-events:none;transition:opacity .25s ease,transform .25s ease;max-width:92vw;text-align:center;
+}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+.toast b{color:var(--orange)}
+noscript{display:block;padding:14px 20px;background:var(--orange);color:var(--ink);font-family:var(--f-mono);font-size:13px}
+
+/* fit the hero (content + ticker) inside one screen on common laptop sizes */
+@media (min-width:1081px) and (max-height:940px){
+  .bf-copy{display:none}
+  .bf-title{font-size:clamp(3.4rem,11vw,9.8rem)}
+  .bf-sub{margin-top:10px}
+  .countdown{margin-top:16px}
+  .early{margin-top:16px}
+}
+@media (min-width:1081px) and (max-height:800px){
+  :root{--fdw:clamp(22px,3.6vw,42px)}
+  .bf-title{font-size:clamp(2.9rem,9.2vw,8.2rem)}
+  .eyebrow-row{margin-bottom:8px}
+  .bf-sub{margin-top:8px;font-size:clamp(.95rem,1.6vw,1.2rem)}
+  .countdown{padding:10px 14px 9px}
+  .cd-label-row{margin-bottom:7px}
+  .early-row input,.early-row .btn{height:50px}
+}
+/* ============ RESPONSIVE ============ */
+@media (max-width:1080px){
+  .hero-inner{grid-template-columns:1fr;gap:26px;align-items:start}
+  .hero-art{min-height:0;margin-top:6px}
+  .kit{max-width:440px}
+  .hero{min-height:0}
+  .doorbuster{grid-template-columns:1fr}
+  .db-media{border-right:none;border-bottom:1px solid var(--line);min-height:300px}
+  .cards{grid-template-columns:1fr}
+  .terms-inner{grid-template-columns:1fr;gap:20px}
+}
+@media (max-width:720px){
+  .nav a.nav-link{display:none}
+  .bf-title{font-size:clamp(3.4rem,17vw,5.6rem)}
+  .early-row{flex-direction:column}
+  .early-row input{border-right:1px solid var(--line-2);border-bottom:none}
+  .early-row .btn{width:100%}
+  .flap-colon{font-size:calc(var(--fdh)*.38)}
+  .tick-item{font-size:16px}
+  .db-cta .btn-atc{min-width:100%}
+}
+</style>
+</head>
+<body data-phase="pre">
+<noscript>This drop needs JavaScript — enable it to catch the deals.</noscript>
+<div class="hazard hazard-top" aria-hidden="true"></div>
+<header class="site-head">
+  <a class="brand" href="#top" aria-label="Northpaw Coffee Roasters — back to top">
+    <span class="brand-badge" aria-hidden="true">
+      <svg viewBox="0 0 64 64" fill="#140E0A"><ellipse cx="32" cy="43" rx="13" ry="10"/><ellipse cx="15" cy="29" rx="5.5" ry="7" transform="rotate(-18 15 29)"/><ellipse cx="25" cy="21" rx="5.5" ry="7.5" transform="rotate(-6 25 21)"/><ellipse cx="39" cy="21" rx="5.5" ry="7.5" transform="rotate(6 39 21)"/><ellipse cx="49" cy="29" rx="5.5" ry="7" transform="rotate(18 49 29)"/></svg>
+    </span>
+    <span>
+      <span class="brand-name">NORTHPAW</span>
+      <span class="brand-sub">COFFEE ROASTERS · PDX</span>
+    </span>
+  </a>
+  <nav class="nav" aria-label="Main">
+    <a class="nav-link" href="#drop">THE DROP</a>
+    <a class="nav-link" href="#terms">TERMS</a>
+    <button class="cart-btn" id="cart-open" aria-label="Open cart">
+      CART <span class="cart-count" id="cart-count" data-zero="1">0</span>
+    </button>
+  </nav>
+</header>
+
+<!-- ============ HERO ============ -->
+<section class="hero" id="top">
+  <div class="hero-inner">
+    <div class="hero-copy">
+      <div class="eyebrow-row">
+        <span class="chip mono">NORTHPAW PRESENTS</span>
+        <span class="mono eyebrow-meta">PORTLAND, OREGON</span>
+        <span class="mono eyebrow-meta"><b>ONE WEEKEND · THREE DEALS</b></span>
+        <span class="status-chip" id="status-chip"><i class="status-dot" aria-hidden="true"></i><span id="status-text"></span></span>
+      </div>
+
+      <h1 class="bf-title" id="bf-title" aria-label="Black Friday">
+        <span class="bf-word" data-split aria-hidden="true">BLACK</span>
+        <span class="bf-word" data-split aria-hidden="true">FRIDAY</span>
+      </h1>
+
+      <p class="bf-sub" id="bf-sub">THREE DEALS. 40 KITS. <em>NO REMATCH.</em></p>
+      <p class="bf-copy" id="bf-copy">Up to 30% off fresh-roasted coffee and our pour-over kit, straight from the Portland roastery. Doors open Friday, November 27 — 00:00 Pacific.</p>
+
+      <div class="countdown" id="countdown" role="timer" aria-label="Countdown to Black Friday">
+        <div class="cd-label-row">
+          <span class="mono cd-label"><i class="cd-dot" aria-hidden="true"></i><span id="cd-label">DOORS OPEN IN</span></span>
+          <span class="mono cd-date" id="cd-date">FRI 27 NOV 2026 · 00:00 PT</span>
+        </div>
+        <div class="flaps" id="flaps"></div>
+      </div>
+
+      <form class="early" id="early-form" novalidate>
+        <p class="mono early-label" id="early-label">ONE FIELD. FIRST IN LINE WHEN DOORS OPEN.</p>
+        <div class="early-row">
+          <input type="email" id="early-email" placeholder="you@yourdomain.com" autocomplete="email" aria-label="Email address" required>
+          <button class="btn btn-primary" type="submit" id="early-btn">GET EARLY ACCESS →</button>
+        </div>
+        <p class="mono early-msg" id="early-msg" role="status" aria-live="polite"></p>
+        <div class="early-done" id="early-done"></div>
+      </form>
+    </div>
+
+    <div class="hero-art">
+      <div class="glow" aria-hidden="true"></div>
+      <figure class="kit" id="kit-fig">
+        <div class="kit-img-wrap" id="kit-img-wrap">
+          <img data-img="brew-kit-cut" alt="Northpaw Pour-Over Brew Kit — matte black gooseneck kettle, ceramic dripper, glass carafe with walnut collar, paper filters" width="954" height="645" id="kit-img">
+        </div>
+        <div class="stamp-wrap" id="stamp-deal" aria-hidden="true"></div>
+        <div class="stamp-wrap stamp-hidden" id="stamp-out" aria-hidden="true"></div>
+      </figure>
+    </div>
+  </div>
+
+  <div class="ticker" aria-label="Black Friday deals">
+    <div class="ticker-track" id="ticker-track"></div>
+  </div>
+</section>
+
+<!-- ============ THE DROP ============ -->
+<main>
+  <section class="drop" id="drop">
+    <header class="sec-head">
+      <p class="chip mono">THE FIGHT CARD</p>
+      <h2>THREE DROPS.<br><em>NO MERCY.</em></h2>
+      <p class="mono sec-sub">BLACK FRIDAY ONLY — FRI NOV 27 00:00 PT → MON NOV 30 23:59 PT · WHILE SUPPLIES LAST</p>
+    </header>
+    <div id="doorbuster-mount"></div>
+    <div class="cards" id="cards-mount"></div>
+  </section>
+
+  <!-- ============ TERMS ============ -->
+  <section class="terms" id="terms">
+    <div class="terms-inner">
+      <h3 class="terms-h">THE<br><em>FINE PRINT</em></h3>
+      <ul class="terms-list mono">
+        <li>SALE WINDOW — FRI NOV 27 2026, 00:00 PT THROUGH MON NOV 30 2026, 23:59 PT. PRICES AS MARKED, NO CODE NEEDED.</li>
+        <li>DOORBUSTER — POUR-OVER BREW KIT LIMITED TO 40 SETS. MAX 2 PER ORDER. WHEN THEY'RE GONE, THEY'RE GONE.</li>
+        <li>FREE US SHIPPING ON ORDERS OVER $50 AFTER DISCOUNT.</li>
+        <li>COFFEE IS FINAL SALE. UNOPENED GEAR RETURNS ACCEPTED THROUGH DEC 30 2026.</li>
+      </ul>
+      <div class="terms-links mono">
+        <button class="linklike" id="policy-open">RETURN POLICY →</button>
+        <span>QUESTIONS — HELLO@NORTHPAW.COFFEE</span>
+        <span>NORTHPAW COFFEE ROASTERS · PORTLAND, OR</span>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-foot">
+  <div class="hazard" aria-hidden="true"></div>
+  <div class="foot-inner">
+    <p class="mono">NORTHPAW COFFEE ROASTERS · PORTLAND, OREGON · © 2026</p>
+    <p class="mono tiny">BLACK FRIDAY 2026 — BUILT FOR THE DROP</p>
+  </div>
+</footer>
+
+<!-- ============ CART DRAWER ============ -->
+<div class="scrim" id="scrim" hidden></div>
+<aside class="drawer" id="drawer" role="dialog" aria-modal="true" aria-label="Your cart">
+  <div class="dr-head">
+    <span class="dr-title">YOUR CART <span id="dr-count"></span></span>
+    <button class="dr-close" id="cart-close" aria-label="Close cart">✕</button>
+  </div>
+  <div class="shipping">
+    <p class="mono ship-label" id="ship-label">FREE SHIPPING OVER <b>$50</b></p>
+    <div class="ship-bar"><i id="ship-fill"></i></div>
+    <p class="mono ship-note">FREE US SHIPPING ON ORDERS OVER $50</p>
+  </div>
+  <div class="dr-items" id="dr-items"></div>
+  <div class="dr-foot">
+    <div class="dr-subtotal"><span class="mono">SUBTOTAL</span><span class="amount" id="dr-subtotal">$0</span></div>
+    <p class="mono dr-note">TAXES &amp; SHIPPING CALCULATED AT CHECKOUT — FREE OVER $50</p>
+    <button class="btn btn-primary" id="checkout-btn">CHECKOUT →</button>
+    <p class="mono dr-mode" id="dr-mode">PREVIEW MODE — NOT CONNECTED TO SHOPIFY</p>
+  </div>
+</aside>
+
+<!-- ============ CHECKOUT PREVIEW MODAL ============ -->
+<div class="modal" id="checkout-modal" role="dialog" aria-modal="true" aria-label="Checkout preview">
+  <div class="modal-card">
+    <p class="mono modal-kicker">NORTHPAW · BLACK FRIDAY 2026</p>
+    <h3 id="co-title">CHECKOUT PREVIEW</h3>
+    <div class="receipt" id="co-receipt"></div>
+    <p class="modal-note" id="co-note">You're on the <b>preview build</b>: this button hands off to <b>real Shopify Checkout</b> once you paste your store's domain and Storefront API token into the <code>SHOPIFY</code> config at the top of this file's script (see README — “Going live”).</p>
+    <div class="modal-actions" id="co-actions">
+      <button class="btn btn-primary" id="co-stage">STAGE THIS ORDER (DEMO)</button>
+      <button class="btn" id="co-cancel">KEEP SHOPPING</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============ RETURN POLICY MODAL ============ -->
+<div class="modal" id="policy-modal" role="dialog" aria-modal="true" aria-label="Return policy">
+  <div class="modal-card">
+    <p class="mono modal-kicker">NORTHPAW COFFEE ROASTERS · PORTLAND, OR</p>
+    <h3>RETURN POLICY</h3>
+    <div class="policy-body">
+      <p><strong>Coffee is final sale.</strong> Beans are roasted to order and shipped fresh, so opened (or opened-bag) coffee can't come back — but if a bag arrives damaged or the roast is off, email us within 14 days and we'll make it right with a replacement or refund.</p>
+      <h4>Gear (Brew Kits &amp; hardware)</h4>
+      <p>Unopened brew gear in original packaging can be returned within <strong>30 days of delivery</strong> — through <strong>December 30, 2026</strong> for Black Friday orders. You cover return shipping unless we shipped the wrong thing.</p>
+      <h4>How to start a return</h4>
+      <p>Email <strong>hello@northpaw.coffee</strong> with your order number and a photo of the item. We'll reply within 2 business days with a return label and instructions.</p>
+      <h4>Refunds</h4>
+      <p>Refunds go back to your original payment method within 5–10 business days after the return reaches the roastery. Sale pricing is honored on exchanges for the same item.</p>
+    </div>
+    <div class="modal-actions"><button class="btn" id="policy-close">CLOSE</button></div>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script>
+/* =====================================================================
+   NORTHPAW COFFEE ROASTERS — BLACK FRIDAY 2026 CAMPAIGN
+   Single-file build. GSAP via CDN. Falls back to seed catalog when
+   Shopify isn't wired (preview mode).
+   ===================================================================== */
+
+/* ==== SHOPIFY STOREFRONT API — paste your store's values to go live ====
+   1. Create your store, import shopify-products.csv (see README).
+   2. Admin → Settings → Apps and sales channels → Headless → create a
+      Storefront API public access token.
+   3. Paste domain + token here. Products, doorbuster stock (40 sets) and
+      checkout all switch to your real Shopify store. */
+const SHOPIFY = {
+  domain: "",                 // e.g. "northpaw-roasters.myshopify.com"
+  storefrontAccessToken: "",  // Storefront API public token
+  apiVersion: "2025-07",
+};
+
+/* ==== ASSETS (inlined as base64 by scripts/build_site.py) ==== */
+const ASSETS = {
+  "night-shift":  "{{ASSET:night-shift}}",
+  "ridgeline":    "{{ASSET:ridgeline}}",
+  "brew-kit":     "{{ASSET:brew-kit}}",
+  "brew-kit-cut": "{{ASSET:brew-kit-cut}}",
+};
+const assetURI = (v) => (v.startsWith("data:") || v.startsWith("http") ? v : "assets/" + v + ".webp");
+
+/* ==== SALE WINDOW (Pacific Time) ==== */
+const T_START = Date.UTC(2026, 10, 27, 8, 0, 0);    // Fri 27 Nov 2026 00:00:00 PT (PST = UTC-8)
+const T_END   = Date.UTC(2026, 11, 1, 7, 59, 59);   // Mon 30 Nov 2026 23:59:59 PT
+const FREE_SHIP_CENTS = 5000;
+const DOORBUSTER_TOTAL = 40;
+
+/* ==== SEEDED CATALOG (mirrors shopify-products.csv) ==== */
+const CATALOG = [
+  { id: "night-shift-espresso", handle: "night-shift-espresso", kind: "coffee",
+    name: "NIGHT SHIFT ESPRESSO", sub: "DARK ROAST · 12 OZ WHOLE BEAN",
+    desc: "The midnight workhorse. Cocoa, burnt sugar and a toasted-hazelnut punch — pulls a shot that stands up to milk.",
+    price: 1800, compare: 2400, img: "night-shift", max: 99 },
+  { id: "ridgeline-single-origin", handle: "ridgeline-single-origin", kind: "coffee",
+    name: "RIDGELINE SINGLE ORIGIN", sub: "SINGLE ORIGIN · 12 OZ WHOLE BEAN",
+    desc: "A washed lot roasted for filter — bright citrus up front, brown sugar behind, clean finish. While the ridge lasts.",
+    price: 2100, compare: 2800, img: "ridgeline", max: 99 },
+  { id: "pour-over-brew-kit", handle: "pour-over-brew-kit", kind: "gear",
+    name: "POUR-OVER BREW KIT", sub: "KETTLE · DRIPPER · CARAFE · 100 FILTERS",
+    desc: "Everything you need to start pouring: matte-black gooseneck kettle, ceramic dripper, glass carafe with walnut collar and a stack of 100 filters.",
+    price: 5900, compare: 8500, img: "brew-kit", cut: "brew-kit-cut", max: 2, doorbuster: true },
+];
+CATALOG.forEach((p) => { p.save = Math.floor(((p.compare - p.price) / p.compare) * 100); });
+const byId = (id) => CATALOG.find((p) => p.id === id);
+
+/* ==== UTILITIES ==== */
+const $  = (s, c) => (c || document).querySelector(s);
+const $$ = (s, c) => Array.from((c || document).querySelectorAll(s));
+const fmt = (c) => "$" + (c % 100 ? (c / 100).toFixed(2) : String(c / 100));
+const REDUCED = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+let toastTimer;
+function toast(html) {
+  const el = $("#toast");
+  el.innerHTML = html;
+  el.classList.add("on");
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => el.classList.remove("on"), 3800);
+}
+
+/* ==== STAMPS (rubber-stamp SVG, unique ids per instance) ==== */
+function stampDealSVG(u) {
+  return `<svg viewBox="0 0 300 300" role="img" aria-label="Doorbuster stamp: 30 percent off">
+  <defs>
+    <filter id="rf${u}" x="-10%" y="-10%" width="120%" height="120%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.055" numOctaves="3" seed="7" result="n"/>
+      <feDisplacementMap in="SourceGraphic" in2="n" scale="4.5"/>
+    </filter>
+    <path id="arc${u}" d="M150,150 m-100,0 a100,100 0 1,1 200,0 a100,100 0 1,1 -200,0"/>
+  </defs>
+  <g filter="url(#rf${u})">
+    <circle cx="150" cy="150" r="128" fill="none" stroke="#FF5F1F" stroke-width="9"/>
+    <circle cx="150" cy="150" r="86" fill="none" stroke="#FF5F1F" stroke-width="3.5"/>
+    <text font-family="'Space Mono',monospace" font-weight="700" font-size="16" letter-spacing="3.2" fill="#FF5F1F" stroke="#140E0A" stroke-width="4" paint-order="stroke" stroke-linejoin="round">
+      <textPath href="#arc${u}" startOffset="2">DOORBUSTER &#183; 40 SETS &#183; DOORBUSTER &#183; 40 SETS &#183;</textPath>
+    </text>
+    <text x="150" y="158" text-anchor="middle" font-family="'Anton','Arial Narrow',sans-serif" font-size="84" fill="#FF5F1F" stroke="#140E0A" stroke-width="7" paint-order="stroke" stroke-linejoin="round">-30%</text>
+    <text x="150" y="196" text-anchor="middle" font-family="'Space Mono',monospace" font-weight="700" font-size="15" letter-spacing="6" fill="#FF5F1F" stroke="#140E0A" stroke-width="3.5" paint-order="stroke" stroke-linejoin="round">OFF</text>
+  </g>
+</svg>`;
+}
+function stampSoldSVG(u) {
+  return `<svg viewBox="0 0 380 150" role="img" aria-label="Sold out stamp">
+  <defs>
+    <filter id="sf${u}" x="-10%" y="-10%" width="120%" height="120%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.06" numOctaves="3" seed="4" result="n"/>
+      <feDisplacementMap in="SourceGraphic" in2="n" scale="4"/>
+    </filter>
+  </defs>
+  <g filter="url(#sf${u})">
+    <rect x="9" y="9" width="362" height="132" fill="none" stroke="#FF5F1F" stroke-width="8"/>
+    <rect x="24" y="24" width="332" height="102" fill="none" stroke="#FF5F1F" stroke-width="3"/>
+    <text x="190" y="78" text-anchor="middle" font-family="'Anton','Arial Narrow',sans-serif" font-size="52" fill="#FF5F1F" stroke="#140E0A" stroke-width="5" paint-order="stroke" stroke-linejoin="round">SOLD OUT</text>
+    <text x="190" y="108" text-anchor="middle" font-family="'Space Mono',monospace" font-weight="700" font-size="13" letter-spacing="5" fill="#FF5F1F" stroke="#140E0A" stroke-width="3" paint-order="stroke" stroke-linejoin="round">DOORBUSTER CLOSED</text>
+  </g>
+</svg>`;
+}
+
+/* ==== STATE ==== */
+const q = new URLSearchParams(location.search);
+const FORCED = q.get("state");
+let FORCE_SOLDOUT = FORCED === "soldout";
+let phase; // "pre" | "live" | "ended"
+
+const store = {
+  get claimed() { return parseInt(localStorage.getItem("np_claimed") || "0", 10) || 0; },
+  set claimed(v) { localStorage.setItem("np_claimed", String(v)); },
+};
+
+/* Shopify overlay (real store data when configured) */
+const SF = {
+  configured: Boolean(SHOPIFY.domain && SHOPIFY.storefrontAccessToken),
+  loaded: false, variantIds: {}, stock: null, available: null,
+  async graphql(query, variables) {
+    const r = await fetch(`https://${SHOPIFY.domain}/api/${SHOPIFY.apiVersion}/graphql.json`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "X-Shopify-Storefront-Access-Token": SHOPIFY.storefrontAccessToken,
+      },
+      body: JSON.stringify({ query, variables }),
+    });
+    const j = await r.json();
+    if (j.errors) throw new Error(j.errors[0].message);
+    return j.data;
+  },
+};
+
+function doorbusterRemaining() {
+  if (FORCE_SOLDOUT) return 0;
+  if (SF.loaded) {
+    if (SF.available === false) return 0;
+    if (typeof SF.stock === "number") return Math.max(0, SF.stock);
+  }
+  return Math.max(0, DOORBUSTER_TOTAL - store.claimed);
+}
+
+/* ==== CART ==== */
+const cart = new Map();
+function cartLoad() {
+  try {
+    (JSON.parse(localStorage.getItem("np_cart") || "[]")).forEach(([id, qty]) => {
+      if (byId(id) && qty > 0) cart.set(id, Math.min(qty, byId(id).max));
+    });
+  } catch (e) { /* corrupted cart — start fresh */ }
+}
+function cartSave() {
+  localStorage.setItem("np_cart", JSON.stringify([...cart]));
+}
+function cartCount() { let n = 0; cart.forEach((q) => (n += q)); return n; }
+function cartSubtotal() {
+  let s = 0; cart.forEach((q, id) => (s += byId(id).price * q)); return s;
+}
+function addToCart(id) {
+  const p = byId(id);
+  if (!p) return;
+  if (p.doorbuster && doorbusterRemaining() <= 0) { toast("DOORBUSTER <b>SOLD OUT</b> — 40 sets are gone"); return; }
+  const cur = cart.get(id) || 0;
+  if (cur >= p.max) { toast(`LIMIT <b>${p.max} ${p.name}</b> PER ORDER`); return; }
+  cart.set(id, cur + 1);
+  cartSave();
+  renderCart();
+  openDrawer();
+  const badge = $("#cart-count");
+  if (window.gsap && !REDUCED) gsap.fromTo(badge, { scale: 1.4 }, { scale: 1, duration: .4, ease: "back.out(3)" });
+}
+function setQty(id, qty) {
+  const p = byId(id);
+  qty = Math.max(0, Math.min(qty, p.max));
+  if (p.doorbuster && doorbusterRemaining() <= 0 && qty > 0) { toast("DOORBUSTER <b>SOLD OUT</b>"); return; }
+  if (qty === 0) cart.delete(id); else cart.set(id, qty);
+  cartSave();
+  renderCart();
+}
+
+/* ==== RENDER: DOORBUSTER + CARDS + TICKER ==== */
+function renderDrop() {
+  const kit = byId("pour-over-brew-kit");
+  $("#doorbuster-mount").innerHTML = `
+  <article class="doorbuster">
+    <div class="db-media">
+      <div class="kit-tilt"><img data-img="brew-kit-cut" alt="Northpaw Pour-Over Brew Kit — kettle, dripper, glass carafe, filters" width="954" height="645"></div>
+      <div class="db-stamp" id="db-stamp" aria-hidden="true">${stampDealSVG("Db")}</div>
+      <div class="sold-overlay" id="db-sold" aria-hidden="true">${stampSoldSVG("DbS")}</div>
+    </div>
+    <div class="db-info">
+      <div class="tag-row">
+        <span class="tag tag-solid">MAIN EVENT</span>
+        <span class="tag tag-line">DOORBUSTER</span>
+        <span class="tag tag-line">SAVE ${kit.save}%</span>
+      </div>
+      <h3 class="db-title">${kit.name}</h3>
+      <p class="db-sub">${kit.sub}</p>
+      <p class="db-desc">${kit.desc}</p>
+      <div class="price-row">
+        <span class="price-now">${fmt(kit.price)}</span>
+        <span class="price-was">${fmt(kit.compare)}</span>
+        <span class="price-save">SAVE ${fmt(kit.compare - kit.price)}</span>
+      </div>
+      <div class="stock">
+        <div class="stock-head mono"><span>DOORBUSTER — ${DOORBUSTER_TOTAL} SETS</span><b id="stock-left"></b></div>
+        <div class="stock-bar" id="stock-bar"><i id="stock-fill"></i></div>
+        <p class="stock-note mono" id="stock-note"></p>
+      </div>
+      <div class="db-cta">
+        <button class="btn btn-primary btn-atc" data-atc="${kit.id}">ADD TO CART</button>
+      </div>
+      <p class="limit-note">LIMIT ${kit.max} PER ORDER · WHILE SUPPLIES LAST</p>
+    </div>
+  </article>`;
+
+  const coffees = CATALOG.filter((p) => !p.doorbuster);
+  $("#cards-mount").innerHTML = coffees.map((p) => `
+  <article class="card">
+    <div class="card-media">
+      <span class="save-badge">SAVE ${p.save}%</span>
+      <img data-img="${p.img}" alt="${p.name} — bag of Northpaw coffee, Black Friday deal">
+    </div>
+    <div class="card-info">
+      <div class="tag-row"><span class="tag tag-line">UNDERCARD</span></div>
+      <h3 class="card-title">${p.name}</h3>
+      <p class="card-sub">${p.sub}</p>
+      <p class="card-desc">${p.desc}</p>
+      <div class="price-row">
+        <span class="price-now">${fmt(p.price)}</span>
+        <span class="price-was">${fmt(p.compare)}</span>
+        <span class="price-save">SAVE ${fmt(p.compare - p.price)}</span>
+      </div>
+      <button class="btn btn-primary btn-atc" data-atc="${p.id}">ADD TO CART</button>
+    </div>
+  </article>`).join("");
+
+  // deal stamps for hero
+  $("#stamp-deal").innerHTML = stampDealSVG("H");
+  $("#stamp-out").innerHTML = stampSoldSVG("Ho");
+
+  // wire add-to-cart
+  $$("[data-atc]").forEach((btn) => btn.addEventListener("click", onATC));
+
+  // assign product images
+  $$("[data-img]").forEach((im) => { const v = ASSETS[im.dataset.img]; if (v) im.src = assetURI(v); });
+
+  syncStock();
+  syncCTAs();
+}
+
+function onATC(e) {
+  const id = e.currentTarget.dataset.atc;
+  if (phase !== "live") {
+    toast("DOORS OPEN <b>FRI NOV 27 · 00:00 PT</b> — GET EARLY ACCESS");
+    const input = $("#early-email");
+    input.scrollIntoView({ behavior: REDUCED ? "auto" : "smooth", block: "center" });
+    setTimeout(() => input.focus({ preventScroll: true }), 450);
+    return;
+  }
+  addToCart(id);
+}
+
+function syncStock() {
+  const remaining = doorbusterRemaining();
+  const left = $("#stock-left"), bar = $("#stock-bar"), fill = $("#stock-fill"), note = $("#stock-note");
+  if (!left) return;
+  const pct = Math.max(2, Math.round((remaining / DOORBUSTER_TOTAL) * 100));
+  left.textContent = remaining > 0 ? `${remaining} OF ${DOORBUSTER_TOTAL} LEFT` : "SOLD OUT";
+  fill.style.width = remaining > 0 ? pct + "%" : "0%";
+  bar.classList.toggle("low", remaining > 0 && remaining <= 10);
+  note.textContent = remaining === 0 ? "SOLD OUT — DOORS CLOSED ON THIS ONE"
+    : remaining <= 10 ? `ONLY ${remaining} LEFT — MOVING FAST`
+    : "WHEN THEY'RE GONE, THEY'RE GONE";
+  const sold = remaining <= 0;
+  $("#db-sold").classList.toggle("on", sold);
+  $("#db-stamp").style.display = sold ? "none" : "";
+  $("#stamp-deal").classList.toggle("stamp-hidden", sold);
+  $("#stamp-out").classList.toggle("stamp-hidden", !sold);
+  updateStatusChip();
+}
+
+function syncCTAs() {
+  $$("[data-atc]").forEach((btn) => {
+    const p = byId(btn.dataset.atc);
+    const sold = p.doorbuster && doorbusterRemaining() <= 0;
+    if (phase === "pre") { btn.disabled = false; btn.textContent = "NOTIFY ME"; btn.dataset.mode = "pre"; }
+    else if (phase === "ended") { btn.disabled = true; btn.textContent = "SALE ENDED"; btn.dataset.mode = "ended"; }
+    else if (sold) { btn.disabled = true; btn.textContent = "SOLD OUT"; btn.dataset.mode = "sold"; }
+    else { btn.disabled = false; btn.textContent = "ADD TO CART"; btn.dataset.mode = "live"; }
+  });
+  const co = $("#checkout-btn");
+  co.disabled = phase !== "live" || cart.size === 0;
+  co.textContent = phase === "pre" ? "OPENS FRI 11.27" : phase === "ended" ? "SALE ENDED" : "CHECKOUT →";
+}
+
+function renderTicker() {
+  const items = CATALOG.map((p) =>
+    `<span class="tick-item">${p.name} — <b>${fmt(p.price)}</b> <s class="was">${fmt(p.compare)}</s></span><span class="tick-sep" aria-hidden="true"></span>`
+  ).concat([
+    `<span class="tick-item">DOORBUSTER — ${DOORBUSTER_TOTAL} SETS ONLY</span><span class="tick-sep" aria-hidden="true"></span>`,
+    `<span class="tick-item">FREE US SHIPPING OVER $50</span><span class="tick-sep" aria-hidden="true"></span>`,
+    `<span class="tick-item">DOORS OPEN FRI NOV 27 · 00:00 PT</span><span class="tick-sep" aria-hidden="true"></span>`,
+  ]).join("");
+  $("#ticker-track").innerHTML = `<span class="tick-half">${items}</span><span class="tick-half" aria-hidden="true">${items}</span>`;
+}
+
+/* ==== RENDER: CART DRAWER ==== */
+function renderCart() {
+  const itemsEl = $("#dr-items");
+  const n = cartCount();
+  $("#dr-count").textContent = n ? `— ${n} ITEM${n > 1 ? "S" : ""}` : "";
+  const badge = $("#cart-count");
+  badge.textContent = n;
+  badge.dataset.zero = n ? "0" : "1";
+
+  if (cart.size === 0) {
+    itemsEl.innerHTML = `<div class="dr-empty">
+      <p class="mono">NOTHING HERE.<br>THE DEALS WON'T WAIT.</p>
+      <button class="btn" id="dr-shop">SHOP THE DROP</button>
+    </div>`;
+    $("#dr-shop").addEventListener("click", () => { closeDrawer(); location.hash = "#drop"; });
+  } else {
+    itemsEl.innerHTML = [...cart].map(([id, qty]) => {
+      const p = byId(id);
+      return `<div class="dr-item">
+        <img class="dr-thumb" src="${assetURI(ASSETS[p.img])}" alt="${p.name}">
+        <div>
+          <p class="dr-name">${p.name}</p>
+          <p class="dr-unit">${fmt(p.price)} EACH${p.doorbuster ? " · DOORBUSTER" : ""}</p>
+          <div class="qty">
+            <button data-q="-1" data-id="${id}" aria-label="Decrease quantity">−</button>
+            <span class="q">${qty}</span>
+            <button data-q="1" data-id="${id}" aria-label="Increase quantity">+</button>
+          </div>
+        </div>
+        <div class="dr-right">
+          <span class="dr-line">${fmt(p.price * qty)}</span>
+          <button class="dr-remove" data-remove="${id}">REMOVE</button>
+        </div>
+      </div>`;
+    }).join("");
+    $$("[data-q]", itemsEl).forEach((b) => b.addEventListener("click", () => {
+      const id = b.dataset.id;
+      setQty(id, (cart.get(id) || 0) + parseInt(b.dataset.q, 10));
+    }));
+    $$("[data-remove]", itemsEl).forEach((b) => b.addEventListener("click", () => setQty(b.dataset.remove, 0)));
+  }
+
+  const sub = cartSubtotal();
+  $("#dr-subtotal").textContent = fmt(sub);
+  const fill = $("#ship-fill"), label = $("#ship-label");
+  fill.style.width = Math.min(100, Math.round((sub / FREE_SHIP_CENTS) * 100)) + "%";
+  if (sub === 0) label.innerHTML = `FREE SHIPPING OVER <b>$50</b>`;
+  else if (sub < FREE_SHIP_CENTS) label.innerHTML = `ADD <b>${fmt(FREE_SHIP_CENTS - sub)}</b> MORE FOR FREE SHIPPING`;
+  else label.innerHTML = `&#10003; <b>FREE SHIPPING</b> UNLOCKED`;
+
+  $("#dr-mode").textContent = SF.configured
+    ? (SF.loaded ? `CONNECTED — ${SHOPIFY.domain} · SHOPIFY CHECKOUT` : "CONNECTING TO SHOPIFY…")
+    : "PREVIEW MODE — NOT CONNECTED TO SHOPIFY (SEE README)";
+  syncCTAs();
+}
+
+/* ==== DRAWER + MODALS ==== */
+function openDrawer() {
+  $("#drawer").classList.add("on");
+  const scrim = $("#scrim"); scrim.hidden = false;
+  requestAnimationFrame(() => scrim.classList.add("on"));
+  document.body.style.overflow = "hidden";
+  $("#cart-close").focus();
+}
+function closeDrawer() {
+  $("#drawer").classList.remove("on");
+  const scrim = $("#scrim");
+  scrim.classList.remove("on");
+  setTimeout(() => { scrim.hidden = true; }, 260);
+  document.body.style.overflow = "";
+}
+function openModal(id) {
+  $(id).classList.add("on");
+  document.body.style.overflow = "hidden";
+  const first = $(id).querySelector("button");
+  if (first) first.focus();
+}
+function closeModal(id) {
+  $(id).classList.remove("on");
+  document.body.style.overflow = "";
+}
+
+/* ==== CHECKOUT ==== */
+async function checkout() {
+  if (phase !== "live" || cart.size === 0) return;
+  if (SF.configured) {
+    try {
+      if (!SF.loaded) await sfLoadProducts();
+      const lines = [...cart].map(([id, qty]) => ({
+        merchandiseId: SF.variantIds[id],
+        quantity: qty,
+      }));
+      if (lines.some((l) => !l.merchandiseId)) throw new Error("variants not loaded");
+      const data = await SF.graphql(
+        `mutation CartCreate($lines: [CartLineInput!]!) {
+           cartCreate(input: { lines: $lines }) { cart { checkoutUrl } userErrors { message } }
+         }`, { lines });
+      const c = data.cartCreate;
+      if (c.userErrors && c.userErrors.length) throw new Error(c.userErrors[0].message);
+      window.location.href = c.cart.checkoutUrl;
+      return;
+    } catch (e) {
+      console.warn("[northpaw] Shopify checkout failed:", e);
+      toast("SHOPIFY CHECKOUT UNAVAILABLE — <b>TRY AGAIN</b>");
+      return;
+    }
+  }
+  // Preview build: demo checkout receipt
+  const rows = [...cart].map(([id, qty]) => {
+    const p = byId(id);
+    return `<div class="receipt-row"><span>${qty} × ${p.name} · ${fmt(p.price)} EA</span><span class="val">${fmt(p.price * qty)}</span></div>`;
+  }).join("");
+  const sub = cartSubtotal();
+  $("#co-receipt").innerHTML = rows +
+    `<div class="receipt-row"><span>SUBTOTAL</span><span class="val">${fmt(sub)}</span></div>
+     <div class="receipt-row"><span>SHIPPING</span><span class="val">${sub >= FREE_SHIP_CENTS ? "FREE" : "AT CHECKOUT"}</span></div>
+     <div class="receipt-row total"><span>TOTAL</span><span class="val">${fmt(sub)}</span></div>`;
+  $("#co-title").textContent = "CHECKOUT PREVIEW";
+  $("#co-note").innerHTML = `You're on the <b>preview build</b>: this button hands off to <b>real Shopify Checkout</b> once you paste your store's domain and Storefront API token into the <code>SHOPIFY</code> config at the top of this file's script (see README — “Going live”).`;
+  $("#co-actions").style.display = "";
+  openModal("#checkout-modal");
+}
+
+function stageDemoOrder() {
+  const kitQty = cart.get("pour-over-brew-kit") || 0;
+  if (kitQty > 0) store.claimed = store.claimed + kitQty;
+  cart.clear();
+  cartSave();
+  closeModal("#checkout-modal");
+  closeDrawer();
+  renderCart();
+  renderDrop();
+  toast(`ORDER <b>STAGED (DEMO)</b> — DOORBUSTER STOCK UPDATED`);
+}
+
+/* ==== SHOPIFY: LOAD REAL PRODUCTS/STOCK ==== */
+async function sfLoadProducts() {
+  const fields = `id title handle
+    priceRange { minVariantPrice { amount currencyCode } }
+    compareAtPriceRange { minVariantPrice { amount } }
+    featuredImage { url altText }
+    variants(first: 1) { nodes { id availableForSale quantityAvailable } }`;
+  const data = await SF.graphql(`query BF {
+    p1: product(handle: "night-shift-espresso") { ${fields} }
+    p2: product(handle: "ridgeline-single-origin") { ${fields} }
+    p3: product(handle: "pour-over-brew-kit") { ${fields} }
+  }`);
+  let found = 0;
+  ["p1", "p2", "p3"].forEach((k) => {
+    const prod = data[k];
+    if (!prod) return;
+    found++;
+    const local = CATALOG.find((p) => p.handle === prod.handle);
+    if (!local) return;
+    const v = prod.variants.nodes[0];
+    SF.variantIds[local.id] = v.id;
+    const price = Math.round(parseFloat(prod.priceRange.minVariantPrice.amount) * 100);
+    const compare = Math.round(parseFloat(prod.compareAtPriceRange.minVariantPrice.amount) * 100);
+    if (price > 0) local.price = price;
+    if (compare > 0) local.compare = compare;
+    local.save = Math.floor(((local.compare - local.price) / local.compare) * 100);
+    if (prod.featuredImage && prod.featuredImage.url) ASSETS[local.img] = prod.featuredImage.url;
+    if (local.doorbuster) {
+      SF.available = v.availableForSale;
+      if (typeof v.quantityAvailable === "number") SF.stock = v.quantityAvailable;
+    }
+  });
+  if (found === 0) throw new Error("no matching products — check handles in README");
+  SF.loaded = true;
+}
+
+/* ==== COUNTDOWN: SPLIT-FLAP DEPARTURE BOARD ==== */
+class FlapDigit {
+  constructor(parent) {
+    this.el = document.createElement("span");
+    this.el.className = "fd";
+    this.el.innerHTML =
+      `<span class="fd-half fd-top"><span class="fd-glyph">0</span></span>` +
+      `<span class="fd-half fd-bottom"><span class="fd-glyph">0</span></span>` +
+      `<span class="fd-flap fd-flap-top"><span class="fd-glyph">0</span></span>` +
+      `<span class="fd-flap fd-flap-bottom"><span class="fd-glyph">0</span></span>`;
+    parent.appendChild(this.el);
+    this.topG  = $(".fd-top .fd-glyph", this.el);
+    this.botG  = $(".fd-bottom .fd-glyph", this.el);
+    this.fTop  = $(".fd-flap-top", this.el);
+    this.fBot  = $(".fd-flap-bottom", this.el);
+    this.fTopG = $(".fd-flap-top .fd-glyph", this.el);
+    this.fBotG = $(".fd-flap-bottom .fd-glyph", this.el);
+    this.value = "0"; this.busy = false; this.pending = null;
+  }
+  setText(v) { this.topG.textContent = v; this.botG.textContent = v; }
+  set(v, animate) {
+    if (v === this.value) { this.pending = null; return; }
+    if (!animate || !window.gsap || REDUCED) { this.value = v; this.setText(v); return; }
+    if (this.busy) { this.pending = v; return; }
+    this.busy = true;
+    const old = this.value; this.value = v;
+    this.topG.textContent = v;      // static top reveals the new digit
+    this.fTopG.textContent = old;   // falling flap carries the old top
+    this.fBotG.textContent = v;     // bottom flap carries the new bottom
+    this.fTop.style.display = "block";
+    gsap.set(this.fTop, { rotationX: 0 });
+    gsap.timeline({ onComplete: () => {
+        this.botG.textContent = v;
+        this.fTop.style.display = "none";
+        this.fBot.style.display = "none";
+        this.busy = false;
+        if (this.pending != null) { const p = this.pending; this.pending = null; this.set(p, true); }
+      } })
+      .to(this.fTop, { rotationX: -90, duration: .17, ease: "power2.in" })
+      .add(() => {
+        this.fTop.style.display = "none";
+        this.fBot.style.display = "block";
+        gsap.set(this.fBot, { rotationX: 90 });
+      })
+      .to(this.fBot, { rotationX: 0, duration: .18, ease: "power2.out" });
+  }
+}
+
+const flaps = { D: [], H: [], M: [], S: [] };
+function buildFlaps() {
+  const wrap = $("#flaps");
+  [["DAYS", "D"], ["HRS", "H"], ["MIN", "M"], ["SEC", "S"]].forEach(([label, key], i) => {
+    const group = document.createElement("span");
+    group.className = "flap-group";
+    const unit = document.createElement("span");
+    unit.className = "flap-unit";
+    flaps[key] = [new FlapDigit(unit), new FlapDigit(unit)];
+    group.appendChild(unit);
+    const lab = document.createElement("span");
+    lab.className = "flap-pair-label";
+    lab.textContent = label;
+    group.appendChild(lab);
+    wrap.appendChild(group);
+    if (i < 3) {
+      const colon = document.createElement("span");
+      colon.className = "flap-colon";
+      colon.textContent = ":";
+      colon.setAttribute("aria-hidden", "true");
+      wrap.appendChild(colon);
+    }
+  });
+}
+
+function countdownTarget() { return phase === "pre" ? T_START : T_END; }
+
+let lastValues = { D: "00", H: "00", M: "00", S: "00" };
+let lastAriaMin = -1;
+function tick(instant) {
+  const now = Date.now();
+  // phase transitions while the page is open
+  if (phase === "pre" && now >= T_START) applyPhase("live", true);
+  else if (phase === "live" && now >= T_END) applyPhase("ended", true);
+
+  const target = countdownTarget();
+  let ms = Math.max(0, target - now);
+  const s = Math.floor(ms / 1000);
+  const vals = {
+    D: String(Math.floor(s / 86400)).padStart(2, "0"),
+    H: String(Math.floor((s % 86400) / 3600)).padStart(2, "0"),
+    M: String(Math.floor((s % 3600) / 60)).padStart(2, "0"),
+    S: String(s % 60).padStart(2, "0"),
+  };
+  const changed = Object.keys(vals).some((k) => vals[k] !== lastValues[k]);
+  if (changed) {
+    Object.keys(vals).forEach((k) => {
+      flaps[k].forEach((d, i) => d.set(vals[k][i], !instant));
+    });
+    lastValues = vals;
+  }
+  const min = parseInt(vals.D + vals.H + vals.M, 10);
+  if (min !== lastAriaMin) {
+    lastAriaMin = min;
+    $("#countdown").setAttribute("aria-label",
+      phase === "pre"
+        ? `Doors open in ${parseInt(vals.D, 10)} days ${parseInt(vals.H, 10)} hours ${parseInt(vals.M, 10)} minutes`
+        : `Sale ends in ${parseInt(vals.D, 10)} days ${parseInt(vals.H, 10)} hours ${parseInt(vals.M, 10)} minutes`);
+  }
+}
+
+/* ==== PHASE ==== */
+function resolvePhase() {
+  const now = Date.now();
+  let p = now < T_START ? "pre" : now < T_END ? "live" : "ended";
+  if (FORCED === "live" || FORCED === "soldout") p = "live";
+  if (FORCED === "pre") p = "pre";
+  return p;
+}
+function applyPhase(p, announce) {
+  phase = p;
+  document.body.dataset.phase = p;
+  $("#status-chip").classList.add("on");
+  updateStatusChip();
+  if (p === "pre") {
+    $("#cd-label").textContent = "DOORS OPEN IN";
+    $("#cd-date").textContent = "FRI 27 NOV 2026 · 00:00 PT";
+    $("#early-label").textContent = "ONE FIELD. FIRST IN LINE WHEN DOORS OPEN.";
+  } else if (p === "live") {
+    $("#cd-label").textContent = "SALE ENDS IN";
+    $("#cd-date").textContent = "ENDS MON 30 NOV 2026 · 23:59 PT";
+    $("#early-label").textContent = "STILL TIME — FIRST DIBS ON RESTOCKS AND NEXT DROPS.";
+  } else {
+    $("#cd-label").textContent = "SALE ENDED";
+    $("#cd-date").textContent = "SEE YOU NEXT YEAR";
+  }
+  syncCTAs();
+  if (announce) toast(p === "live" ? "<b>DOORS OPEN</b> — THE SALE IS LIVE" : "<b>SALE ENDED</b> — SEE YOU NEXT YEAR");
+}
+
+function updateStatusChip() {
+  const t = $("#status-text");
+  if (phase === "pre") t.textContent = "DOORS OPEN FRI 11.27";
+  else if (phase === "ended") t.textContent = "SALE ENDED";
+  else t.textContent = doorbusterRemaining() <= 0 ? "LIVE · DOORBUSTER GONE" : "LIVE NOW";
+}
+
+/* ==== ANIMATIONS ==== */
+function splitLetters() {
+  $$("#bf-title [data-split]").forEach((word) => {
+    const text = word.textContent;
+    word.textContent = "";
+    text.split("").forEach((ch) => {
+      const s = document.createElement("span");
+      s.className = "ltr";
+      s.textContent = ch;
+      word.appendChild(s);
+    });
+  });
+}
+
+function startMotion() {
+  if (!window.gsap) {
+    document.documentElement.classList.add("no-gsap");
+    return;
+  }
+  if (REDUCED) return; // content renders in its final state; countdown still updates
+  const letters = $$("#bf-title .ltr");
+  const stampSel = $("#stamp-deal").classList.contains("stamp-hidden") ? "#stamp-out" : "#stamp-deal";
+  const stampEl = $(stampSel);
+  const tl = gsap.timeline();
+
+  tl.from("#kit-img-wrap", { scale: .92, opacity: 0, y: 26, duration: .6, ease: "power3.out" }, 0);
+  tl.from(".eyebrow-row > *", { y: 22, opacity: 0, duration: .45, stagger: .06, ease: "power3.out" }, .05);
+
+  let t = .32;
+  letters.forEach((l) => {
+    tl.fromTo(l,
+      { y: -150, opacity: 0, scale: 1.55, rotation: gsap.utils.random(-9, 9) },
+      { y: 0, opacity: 1, scale: 1, rotation: 0, duration: .3, ease: "power4.in" }, t);
+    tl.to(l, { scaleY: .8, scaleX: 1.14, duration: .06, ease: "power1.out" }, t + .3);
+    tl.to(l, { scaleY: 1, scaleX: 1, duration: .34, ease: "elastic.out(1,.4)" }, t + .36);
+    t += .068;
+  });
+
+  // one thump when the last letter lands
+  tl.to(".hero-inner", { keyframes: [{ x: 5, duration: .04 }, { x: -4, duration: .04 }, { x: 2, duration: .04 }, { x: 0, duration: .04 }] }, t + .02);
+
+  // rubber stamp thuds onto the kit
+  tl.fromTo(stampEl,
+    { scale: 2.6, opacity: 0, rotation: -38 },
+    { scale: 1, opacity: 1, rotation: -10, duration: .32, ease: "power4.in" }, t + .06);
+  tl.to("#kit-img-wrap", { y: 12, duration: .07, ease: "power1.in" }, t + .38);
+  tl.to("#kit-img-wrap", { y: 0, duration: .55, ease: "elastic.out(1.2,.35)" }, t + .45);
+  tl.to(".hero-inner", { keyframes: [{ x: 3, duration: .04 }, { x: -2, duration: .04 }, { x: 0, duration: .04 }] }, t + .38);
+
+  tl.from(["#bf-sub", "#bf-copy"], { y: 26, opacity: 0, duration: .5, stagger: .09, ease: "power3.out" }, t + .3);
+  tl.from("#countdown", { y: 26, opacity: 0, duration: .5, ease: "power3.out" }, t + .45);
+  tl.from(".early", { y: 26, opacity: 0, duration: .5, ease: "power3.out" }, t + .58);
+
+  // gentle float after the intro settles
+  tl.add(() => {
+    gsap.to("#kit-img-wrap", { y: 12, duration: 2.8, yoyo: true, repeat: -1, ease: "sine.inOut" });
+  });
+
+  // ticker marquee
+  gsap.to("#ticker-track", { xPercent: -50, duration: 28, ease: "none", repeat: -1 });
+}
+
+/* ==== EARLY ACCESS FORM ==== */
+function wireEarlyAccess() {
+  const form = $("#early-form"), input = $("#early-email"), msg = $("#early-msg"), done = $("#early-done");
+  const saved = localStorage.getItem("np_early_access");
+  if (saved) {
+    form.style.display = "none";
+    done.classList.add("on");
+    done.innerHTML = `&#10003; YOU'RE ON THE LIST, <b>${saved.toUpperCase()}</b> — DOORS OPEN FRI NOV 27 · 00:00 PT`;
+    return;
+  }
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const v = input.value.trim();
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v)) {
+      msg.textContent = "ENTER A REAL EMAIL — THE DROP WON'T WAIT.";
+      msg.className = "mono early-msg err";
+      if (window.gsap && !REDUCED) gsap.fromTo(input, { x: 0 }, { keyframes: [{ x: -7 }, { x: 6 }, { x: -4 }, { x: 0 }], duration: .3 });
+      input.focus();
+      return;
+    }
+    localStorage.setItem("np_early_access", v);
+    form.style.display = "none";
+    done.classList.add("on");
+    done.innerHTML = `&#10003; YOU'RE ON THE LIST — <b>DOORS OPEN FRI NOV 27 · 00:00 PT</b>. WATCH YOUR INBOX.`;
+    toast("<b>EARLY ACCESS</b> LOCKED IN");
+    // Wire this to your ESP (Klaviyo/Shopify customer) — see README "Early-access emails".
+    console.log("[northpaw] early access signup:", v);
+  });
+}
+
+/* ==== INIT ==== */
+function boot() {
+  buildFlaps();
+  splitLetters();
+  applyPhase(resolvePhase(), false);
+  renderTicker();
+  renderDrop();
+  cartLoad();
+  renderCart();
+  wireEarlyAccess();
+
+  // events
+  $("#cart-open").addEventListener("click", openDrawer);
+  $("#cart-close").addEventListener("click", closeDrawer);
+  $("#scrim").addEventListener("click", closeDrawer);
+  $("#checkout-btn").addEventListener("click", checkout);
+  $("#co-stage").addEventListener("click", stageDemoOrder);
+  $("#co-cancel").addEventListener("click", () => closeModal("#checkout-modal"));
+  $("#policy-open").addEventListener("click", () => openModal("#policy-modal"));
+  $("#policy-close").addEventListener("click", () => closeModal("#policy-modal"));
+  $$(".modal").forEach((m) => m.addEventListener("click", (e) => { if (e.target === m) closeModal("#" + m.id); }));
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") { closeDrawer(); closeModal("#checkout-modal"); closeModal("#policy-modal"); }
+  });
+
+  // countdown engine
+  tick(true);
+  setInterval(() => tick(), 250);
+
+  // start motion once fonts are in (so the display face doesn't swap mid-slam)
+  const start = () => startMotion();
+  if (document.fonts && document.fonts.ready) {
+    Promise.race([document.fonts.ready, new Promise((r) => setTimeout(r, 1400))]).then(start);
+  } else setTimeout(start, 300);
+
+  // pull real Shopify data when configured
+  if (SF.configured) {
+    sfLoadProducts()
+      .then(() => { renderDrop(); renderCart(); console.log("[northpaw] Shopify storefront connected."); })
+      .catch((e) => {
+        console.warn("[northpaw] Storefront API unavailable — running on seed data.", e);
+        toast("SHOPIFY CONNECT FAILED — <b>RUNNING SEEDED PREVIEW</b>");
+      });
+  }
+}
+
+if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", boot);
+else boot();
+</script>
+</body>
+</html>
+
+
